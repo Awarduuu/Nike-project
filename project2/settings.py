@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'introduction',
     'lifestyle',
     'sports',
+    'posts',
 ]
 
 MIDDLEWARE = [
