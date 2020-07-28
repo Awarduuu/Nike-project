@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'lifestyle',
     'sports',
     'posts',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +128,12 @@ USE_TZ = False
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'project2','media')
+
+AUTHENTICATION_BACKENDS = [
+    # Django superuser로 로그인 가능
+    'django.contrib.auth.backends.ModelBackend',
+    # 이메일 등으로 로그인 가능
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+SITE_ID=1
+LOGIN_REDIRECT_URL = '/'    
