@@ -9,6 +9,7 @@
 {% endif %}
 <h3>글 내용 : {{ post.content }} </h3><br>
 <h3>작성 시각 : {{ post.created_at }} </h3><br>
+<h3>조회수 : {{ post.view_count }}</h3>
 {% if post.image %}
     <img src = "{{post.image.url}}" width=500px><br>
 {% endif %}
