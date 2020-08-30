@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="container mt-5 mb-5">
 <h1>상세보기 페이지</h1>
 <h3>글 제목 : {{ post.title }} </h3><br>
 {% if post.user %}
@@ -24,13 +25,31 @@
       <input type="submit" class="btn btn-primary" value="확인">
     </form>
 </div>
+</div>
 <div class="container mt-5 mb-5">
     {% for comment in comments %}
         <div class="card">
             <div class="card-body">
-                <b>{{ comment.writer }}</b> : {{ comment.content }}<br>
+                <div class="row">
+                    <div class="col">
+                        <b>
+                            {% if "user" in comment.writer.username %}
+                                {{ comment.writer.last_name }}{{ comment.writer.first_name }}
+                            {% else %}
+                                {{ comment.writer }}
+                            {% endif %}
+                        </b> {{ comment.content }}
+                    </div>
+                    {% if user == comment.writer %}
+                        <div class="col text-right">
+                            <a href="{% url 'posts:update_comment' comment.id %}">수정</a>
+                            <a href="{% url 'posts:delete_comment' comment.id %}">삭제</a>
+                        </div>
+                    {% endif %}
+                </div>
                 <small>{{ comment.created_at }}</small>
             </div>
+            
         </div>
     {% endfor %}
 </div>
