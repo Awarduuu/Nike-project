@@ -4,24 +4,17 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="container">
-    <h1>List</h1>
+    <h1>Likes List</h1>
     <div class="row">
-        {% for post in posts %}
+        {% for like in likes %}
         <div class="col-md-4 col-12">
             <div class="card" style="width: 20rem; margin-top: 30px;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="card-text">{{ post.content }}</p>
+                    <h5 class="card-title">{{ like.post.title }}</h5>
+                    <p class="card-text">{{ like.post.content }}</p>
                     <p>{{ post.created_at }}</p>
                     <p>조회수 : {{ post.view_count }}</p>
-                    <a href="{% url 'posts:post_like' post.id%}">
-                        {% if user in post.like_user_set.all%}
-                            <i class="fas fa-heart"></i>
-                        {% else %}
-                            <i class="far fa-heart"></i>
-                        {% endif %}
-                    </a>
-                    <a href="{% url 'posts:show' post.pk %}" class="btn btn-primary">Detail</a>
+                    <a href="{% url 'posts:show' like.post.id %}" class="btn btn-primary">Detail</a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comment
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def new(request):
     return render(request, 'posts/new.html')
@@ -61,3 +62,22 @@ def delete_comment(request, comment_id):
     post_id = comment.post.id
     comment.delete()
     return redirect('posts:show', post_id)
+
+
+@login_required
+def post_like(request, post_id):
+        post = get_object_or_404(Post, pk=post_id)
+
+        if request.user in post.like_user_set.all():
+                post.like_user_set.remove(request.user)
+        else:
+                post.like_user_set.add(request.user)
+        if request.GET.get('redirect_to') == 'show':
+                return redirect('posts:show', post_id)
+        else:
+                return redirect('posts:main')
+
+@login_required
+def like_list(request):
+        likes = request.user.like_set.all()
+        return render(request,'posts/like_list.html', {'likes':likes})
